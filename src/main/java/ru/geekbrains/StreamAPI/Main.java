@@ -3,6 +3,7 @@ package ru.geekbrains.StreamAPI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
 2. Создать класс Employee (Сотрудник) с полями: String name, int age, double salary, String department
@@ -16,8 +17,10 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println("\n2.1 Создать список из 10-20 сотрудников");
+
         List<Employee> employeeList = List.of(
-                new Employee("Sergei", 42, 2500.00, "Sales"),
+                new Employee("Sergei", 42, 12500.00, "Sales"),
                 new Employee("Maxim", 38, 2500.00, "Sales"),
                 new Employee("Ilya", 40, 2700.00, "Technical"),
                 new Employee("Fanur", 37, 3500.00, "Technical"),
@@ -35,5 +38,19 @@ public class Main {
 
         System.out.println(employeeList);
 
+        System.out.println("\n2.2 Вывести список всех различных отделов (department) по списку сотрудников");
+
+        employeeList.stream()
+                .map(Employee::getDepartment)
+                .distinct()
+                .forEach(System.out::println);
+
+        System.out.println("\n2.3 Всем сотрудникам, чья зарплата меньше 10_000, повысить зарплату на 20%\n");
+
+        employeeList.stream()
+                .filter(it -> it.getSalary() < 10_000)
+                .flatMap(it -> Stream.of(
+                        String.format("Сотрудник: %s; Департамент: %s; Зарплата до повышения: %s / После повышения: %s", it.getName(), it.getDepartment(), it.getSalary(), (it.getSalary() * 1.2))))
+                .forEach(System.out::println);
     }
 }
