@@ -1,9 +1,11 @@
 package ru.geekbrains.StreamAPI;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 import java.util.stream.Stream;
+import static ru.geekbrains.StreamAPI.Employee.EmployeesByDepartments;
+import static ru.geekbrains.StreamAPI.Employee.AverageSalaryByDepartments;
 
 /*
 2. Создать класс Employee (Сотрудник) с полями: String name, int age, double salary, String department
@@ -52,5 +54,15 @@ public class Main {
                 .flatMap(it -> Stream.of(
                         String.format("Сотрудник: %s; Департамент: %s; Зарплата до повышения: %s / После повышения: %s", it.getName(), it.getDepartment(), it.getSalary(), (it.getSalary() * 1.2))))
                 .forEach(System.out::println);
+
+        System.out.println("\n2.4 * Из списка сотрудников с помощью стрима создать Map<String, List<Employee>> с отделами и сотрудниками внутри отдела\n");
+
+        Map<String,List<Employee>> listMap = EmployeesByDepartments(employeeList);
+        System.out.println(listMap);
+
+        System.out.println("\n2.5 * Из списока сорудников с помощью стрима создать Map<String, Double> с отделами и средней зарплатой внутри отдела\n");
+
+        Map<String,Double> departments = AverageSalaryByDepartments(employeeList);
+        System.out.println(departments);
     }
 }

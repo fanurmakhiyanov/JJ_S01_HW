@@ -27,7 +27,7 @@ public class Main {
         Optional<Integer> max = list.stream().max(Integer::compare);
         System.out.printf("Максимальное значение в массиве: " + max.get());
 
-        System.out.println("\n\n1.2 Все числа, большие, чем 500_000, умножить на 5, отнять от них 150 и просуммировать");
+        System.out.println("\n\n1.2 Все числа, больше, чем 500_000, умножить на 5, отнять от них 150 и просуммировать");
 
         list = list.stream().sorted().filter(numbers -> numbers > 500_000).map(numbers -> (numbers * 5) - 150).collect(Collectors.toList());
         int sum = 0;
